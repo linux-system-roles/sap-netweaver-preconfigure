@@ -1,0 +1,35 @@
+---
+# OS RELEASE: RHEL 7 and RHEL 8
+# SAP Note: 2526952 - Red Hat Enterprise Linux for SAP Solutions
+# prerequisite: package tuned-profiles-sap is installed (see vars/RedHat.yml)
+
+# Configure tuned to use profile "sap-netweaver"
+
+- name: Enable and start tuned
+  service:
+    name=tuned
+    state=started
+    enabled=yes
+
+- name: Show active tuned profile
+  command: bash -lc "/usr/sbin/tuned-adm active | awk '/:/{print $NF}'"
+  register: current_profile
+  changed_when: false
+- debug:
+    var: current_profile.stdout_lines, current_profile.stderr_lines
+
+- name: Switch to tuned profile sap-netweaver if not currently active
+  block:
+    - name: Switch to tuned profile sap-netweaver
+      shell: /usr/sbin/tuned-adm profile sap-netweaver
+
+    - name: Show active tuned profile
+      command: bash -lc "/usr/sbin/tuned-adm active | awk '{print $NF}'"
+      register: new_profile
+      changed_when: false
+    - debug:
+        var: new_profile.stdout_lines, new_profile.stderr_lines
+  when:
+    - current_profile.stdout != 'sap-netweaver'
+
+...

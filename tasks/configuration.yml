@@ -1,0 +1,12 @@
+---
+# tasks file for sap-netweaver-preconfigure configuration
+
+- name: list of required SAP Notes
+  debug:
+    var: sap_netweaver_preconfigure_sapnotes | difference([''])
+
+- name: include configuration actions for required sapnotes
+  include_tasks: "sapnote/{{ item }}.yml"
+  with_items: "{{ sap_netweaver_preconfigure_sapnotes | difference(['']) }}"
+
+...

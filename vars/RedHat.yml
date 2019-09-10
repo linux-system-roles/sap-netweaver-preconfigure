@@ -1,0 +1,11 @@
+---
+
+# vars file for sap-netweaver-preconfigure
+
+sap_netweaver_preconfigure_sapnotes:
+  - "2526952"
+
+sap_netweaver_preconfigure_packages:
+  - tuned-profiles-sap
+
+...

@@ -1,0 +1,10 @@
+---
+# defaults file for sap-netweaver-preconfigure
+
+sap_netweaver_preconfigure_min_package_check: false
+
+sap_netweaver_preconfigure_installation_check_only: false
+
+sap_netweaver_preconfigure_update: false
+
+...

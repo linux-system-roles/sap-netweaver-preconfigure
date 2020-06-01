@@ -11,25 +11,21 @@ To use this role, your system needs to be installed according to:
 - RHEL 8: SAP note 2772999, Red Hat Enterprise Linux 8.x: Installation and Configuration, section "Installing Red Hat Enterprise Linux 8".
 - Role sap-preconfigure should be run first.
 
+Note
+----
+As per SAP notes 2002167 and 2772999, the role will switch to tuned profile sap-netweaver no matter if another tuned profile (e.g. virtual-guest) had been active before or not.
+
+The role does not check if enough swap space as per the prerequisite checker in sapinst has been configured on the managed node. Please check the SAP NetWeaver installation guide for swap space requirements.
+
 Role Variables
 --------------
 
-### SAP notes to apply
-The following variable contains a list of all SAP notes which are used for this role:
-```yaml
-sap_netweaver_preconfigure_sapnotes
-```
-
-### Required packages
-The following variable contains the additional package which is required for SAP NetWeaver.
-```yaml
-sap_netweaver_preconfigure_packages
-```
+This role does not use any user configurable variables.
 
 Example Playbook
 ----------------
 
-Here is a simple playbook:
+Here is a simple playbook which will configure a RHEL system for installation of SAP NetWeaver:
 
 ```yaml
 ---

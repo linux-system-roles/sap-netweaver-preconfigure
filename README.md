@@ -20,7 +20,11 @@ The role does not check if enough swap space as per the prerequisite checker in 
 Role Variables
 --------------
 
-This role does not use any user configurable variables.
+### Fail if there is less than 20480 MB of swap space configured
+If the following variable is set to no, the role will not fail if less than 20480 MB of swap space is configured. Default is yes.
+```yaml
+sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured
+```
 
 Example Playbook
 ----------------

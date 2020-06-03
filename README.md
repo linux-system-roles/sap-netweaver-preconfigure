@@ -15,7 +15,9 @@ Note
 ----
 As per SAP notes 2002167 and 2772999, the role will switch to tuned profile sap-netweaver no matter if another tuned profile (e.g. virtual-guest) had been active before or not.
 
-The role does not check if enough swap space as per the prerequisite checker in sapinst has been configured on the managed node. Please check the SAP NetWeaver installation guide for swap space requirements.
+The role can check if enough swap space as per the prerequisite checker in sapinst has been configured on the managed node. Please check the SAP NetWeaver installation guide for swap space requirements.
+
+Please do not run this role against a productive SAP NetWeaver system. The role will unconditionally make changes to the managed node, which might not be intended on productive SAP NetWeaver systems.
 
 Role Variables
 --------------

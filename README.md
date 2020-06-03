@@ -17,7 +17,7 @@ As per SAP notes 2002167 and 2772999, the role will switch to tuned profile sap-
 
 The role can check if enough swap space as per the prerequisite checker in sapinst has been configured on the managed node. Please check the SAP NetWeaver installation guide for swap space requirements.
 
-Please do not run this role against a productive SAP NetWeaver system. The role will unconditionally make changes to the managed node, which might not be intended on productive SAP NetWeaver systems.
+Do not run this role against an SAP NetWeaver or other production system. The role will enforce a certain configuration on the managed node(s), which might not be intended.
 
 Role Variables
 --------------

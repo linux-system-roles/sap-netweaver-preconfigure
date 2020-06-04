@@ -22,7 +22,7 @@
 - name: Switch to tuned profile sap-netweaver if not currently active
   block:
     - name: Switch to tuned profile sap-netweaver
-      command: bash -lc "/usr/sbin/tuned-adm profile sap-netweaver"
+      command: /usr/sbin/tuned-adm profile sap-netweaver
 
     - name: Show active tuned profile
       command: bash -lc "/usr/sbin/tuned-adm active | awk '{print $NF}'"

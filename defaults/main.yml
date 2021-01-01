@@ -1,6 +1,8 @@
 ---
 # defaults file for sap-netweaver-preconfigure
 
+sap_netweaver_preconfigure_min_swap_space_mb: "{{ __sap_netweaver_preconfigure_min_swap_space_mb }}"
+
 sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured: yes
 
 ...

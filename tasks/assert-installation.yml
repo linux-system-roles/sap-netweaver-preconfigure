@@ -12,32 +12,27 @@
     loop_var: line_item
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
-- set_fact:
-    __sap_netweaver_preconfigure_adobe_doc_services_packages_list: 
-      "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages_list|default([]) + 
-       [{'name': line_item.split('.')[0], 'arch': line_item.split('.')[1]}] }}"
-  with_items: "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages }}"
-  loop_control:
-    loop_var: line_item
-  when: sap_netweaver_preconfigure_use_adobe_doc_services|d(false)
-
 - name: Check if required packages for Adobe Document Services are installed
-  shell: rpm -q --qf "%{NAME}.%{ARCH}\n" $(echo {{ __sap_netweaver_preconfigure_adobe_doc_services_packages }} | sed "s.,..g;s,\[,,;s,],,;s,',,g") | grep -v "is not installed"
+  shell: rpm -q --qf "%{NAME}.%{ARCH}\n" {{ pkg[0] }}
+  with_list: "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages }}"
+  loop_control:
+    loop_var: pkg
   register: rpm_result
   changed_when: no
   args:
     warn: false
   when: sap_netweaver_preconfigure_use_adobe_doc_services|d(false)
+  ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
 - name: Assert that all required packages for Adobe Document Services are installed
   assert:
-    that:
-      - "'{{ line_item.name }}.{{ line_item.arch }}' in rpm_result.stdout_lines"
-    fail_msg: "FAIL: Package '{{ line_item.name }}.{{ line_item.arch }}' is not installed!"
-    success_msg: "PASS: Package '{{ line_item.name }}.{{ line_item.arch }}' is installed."
-  with_items: "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages_list }}"
+    that: "'is not installed' not in line_item.stdout"
+    fail_msg: "FAIL: Package '{{ line_item.stdout }}'!"
+    success_msg: "PASS: Package '{{ line_item.stdout }}' is installed."
+  with_items: "{{ rpm_result.results }}"
   loop_control:
     loop_var: line_item
   when: sap_netweaver_preconfigure_use_adobe_doc_services|d(false)
+  ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
 ...

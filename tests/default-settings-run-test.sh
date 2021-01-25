@@ -16,8 +16,6 @@ printf "Managed node Red Hat release: "
 ssh ${MANAGED_NODE} cat /etc/redhat-release
 printf "Managed node HW architecture: "
 ssh ${MANAGED_NODE} uname -m
-printf "Managed node HW architecture: "
-ssh ${MANAGED_NODE} uname -m
 echo
 
 # Test 1: Run the role in check mode

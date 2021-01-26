@@ -5,20 +5,30 @@
     msg: "INFO: The installed version of package tuned is: {{ ansible_facts.packages['tuned'][0].version }}"
   when: "'tuned' in ansible_facts.packages"
 
+- name: Assert that tuned.service exists
+  assert:
+    that:
+      - "'tuned.service' in ansible_facts.services"
+    fail_msg: "FAIL: Service tuned could not be found!"
+    success_msg: "PASS: Service tuned is available."
+  ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
+
 - name: Assert that tuned is enabled
   assert:
     that:
       - ansible_facts.services['tuned.service']['status'] == 'enabled'
-    fail_msg: "FAIL: Service tuned is NOT enabled!"
+    fail_msg: "FAIL: Service tuned is not enabled!"
     success_msg: "PASS: Service tuned is enabled."
+  when: "'tuned.service' in ansible_facts.services"
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
 - name: Assert that tuned is active
   assert:
     that:
       - ansible_facts.services['tuned.service']['state'] == 'running'
-    fail_msg: "FAIL: Service tuned is NOT active!"
+    fail_msg: "FAIL: Service tuned is not active!"
     success_msg: "PASS: Service tuned is active."
+  when: "'tuned.service' in ansible_facts.services"
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
 - name: Report tuned-profiles-sap-hana version

@@ -31,7 +31,7 @@
   when: "'tuned.service' in ansible_facts.services"
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
 
-- name: Report tuned-profiles-sap-hana version
+- name: Report tuned-profiles-sap-netweaver version
   debug:
     msg: "INFO: The installed version of package tuned-profiles-sap is: {{ ansible_facts.packages['tuned-profiles-sap'][0].version }}"
   when: "'tuned-profiles-sap' in ansible_facts.packages"

@@ -1,23 +1,28 @@
 sap-netweaver-preconfigure
 ================
 
-This role configures a RHEL 7 or RHEL 8 system according to applicable SAP notes so that SAP NetWeaver can be installed.
+This role installs additional required packages and performs additional configuration steps for installing and running SAP NetWeaver.
+If you want to configure a RHEL system for the installation and later usage of SAP NetWeaver, you have to first run role sap-preconfigure
+and then role sap-netweaver-preconfigure.
 
 Requirements
 ------------
 
-To use this role, your system needs to be installed according to:
-- RHEL 7: SAP note 2002167, Red Hat Enterprise Linux 7.x: Installation and Upgrade, section "Installing Red Hat Enterprise Linux 7"
-- RHEL 8: SAP note 2772999, Red Hat Enterprise Linux 8.x: Installation and Configuration, section "Installing Red Hat Enterprise Linux 8".
-- Role sap-preconfigure should be run first.
+To use this role, your system needs to be configured with the basic requirements for SAP NetWeaver or SAP HANA. This is typically done by running
+role sap-preconfigure (for RHEL managed nodes before RHEL 7.6, community maintained role sap-base-settings can be used).
+It is also stronly recommended to run role linux-system-roles.timesync for all systems running SAP NetWeaver, to maintain an identical system time,
+before or after running role sap-netweaver-preconfigure.
 
 Note
 ----
-As per SAP notes 2002167 and 2772999, the role will switch to tuned profile sap-netweaver no matter if another tuned profile (e.g. virtual-guest) had been active before or not.
+As per SAP notes 2002167 and 2772999, the role will switch to tuned profile sap-netweaver no matter if another tuned profile (e.g. virtual-guest)
+had been active before or not.
 
-The role can check if enough swap space as per the prerequisite checker in sapinst has been configured on the managed node. Please check the SAP NetWeaver installation guide for swap space requirements.
+The role can check if enough swap space - as per the prerequisite checker in sapinst - has been configured on the managed node.
+Please check the SAP NetWeaver installation guide for swap space requirements.
 
-Do not run this role against an SAP NetWeaver or other production system. The role will enforce a certain configuration on the managed node(s), which might not be intended.
+Do not run this role against an SAP NetWeaver or other production system. The role will enforce a certain configuration on the managed node(s),
+which might not be intended.
 
 Role Variables
 --------------

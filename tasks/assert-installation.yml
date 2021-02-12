@@ -14,7 +14,7 @@
 
 - name: Check if required packages for Adobe Document Services are installed
   shell: rpm -q --qf "%{NAME}.%{ARCH}\n" {{ __sap_netweaver_preconfigure_adobe_doc_services_packages | map('quote') | join(' ') }}
-  register: rpm_result
+  register: __sap_netweaver_preconfigure_register_rpm_q_ads_packages
   changed_when: no
   args:
     warn: false
@@ -26,7 +26,7 @@
     that: "'is not installed' not in line_item"
     fail_msg: "FAIL: Package '{{ line_item }}'!"
     success_msg: "PASS: Package '{{ line_item }}' is installed."
-  with_items: "{{ rpm_result.stdout_lines }}"
+  with_items: "{{ __sap_netweaver_preconfigure_register_rpm_q_ads_packages.stdout_lines }}"
   loop_control:
     loop_var: line_item
   when: sap_netweaver_preconfigure_use_adobe_doc_services|d(false)

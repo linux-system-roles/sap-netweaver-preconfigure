@@ -11,12 +11,9 @@
   include_tasks: "sapnote/assert-{{ item }}.yml"
   with_items: "{{ __sap_netweaver_preconfigure_sapnotes | difference(['']) }}"
 
-- name: Warn if swap space check will be skipped
-  fail:
-    msg: "WARN: The swap space check will be skipped because variable
-      sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured is set to no!"
+- debug:
+    msg: "INFO: Not checking for the minimum size of the swap space (variable sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured)."
   when: not sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured
-  ignore_errors: true
 
 - name: Assert that enough swap space is configured
   assert:

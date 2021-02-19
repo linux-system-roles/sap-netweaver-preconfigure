@@ -4,4 +4,3 @@
     sap_netweaver_preconfigure_assert_ignore_errors: yes
   roles:
     - role: sap-netweaver-preconfigure
-

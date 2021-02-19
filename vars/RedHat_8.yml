@@ -39,5 +39,3 @@ __sap_netweaver_preconfigure_adobe_doc_services_packages:
   - libstdc++.i686
   - libgcc.i686
   - libuuid.i686
-
-...

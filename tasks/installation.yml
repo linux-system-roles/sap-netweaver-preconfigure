@@ -10,5 +10,3 @@
     state: present
     name: "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages }}"
   when: sap_netweaver_preconfigure_use_adobe_doc_services
-
-...

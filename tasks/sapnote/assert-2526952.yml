@@ -49,5 +49,3 @@
       Currently active profile: '{{ __sap_netweaver_preconfigure_register_current_tuned_profile.stdout }}'."
     success_msg: "PASS: The tuned profile 'sap-netweaver' is currently active."
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
-
-...

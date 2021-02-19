@@ -40,5 +40,3 @@ __sap_netweaver_preconfigure_adobe_doc_services_packages:
   - transfig.x86_64
   - zlib.x86_64
   - libuuid.x86_64
-
-...

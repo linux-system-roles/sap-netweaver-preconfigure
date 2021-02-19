@@ -41,5 +41,3 @@
         __sap_netweaver_preconfigure_register_active_tuned_profile: "{{ __sap_netweaver_preconfigure_register_new_tuned_profile.stdout }}"
   when:
     - __sap_netweaver_preconfigure_register_current_tuned_profile.stdout != 'sap-netweaver'
-
-...

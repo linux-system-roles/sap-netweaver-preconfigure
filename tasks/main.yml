@@ -24,5 +24,3 @@
 
 - include_tasks: '{{ assert_prefix }}configuration.yml'
   when: sap_netweaver_preconfigure_config_all|d(true) or sap_netweaver_preconfigure_configuration|d(false)
-
-...

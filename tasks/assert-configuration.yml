@@ -25,5 +25,3 @@
       which is equal to or more than the minimum required amount of {{ sap_netweaver_preconfigure_min_swap_space_mb }} MB for SAP NetWeaver."
   when: sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
-
-...

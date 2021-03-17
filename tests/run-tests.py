@@ -12,6 +12,7 @@ if (len(sys.argv) == 1):
 else:
     _managed_node=sys.argv[1]
 
+print('Running tests for role sap-netweaver-preconfigure...\n')
 print('Managed node: ' + _managed_node)
 
 _mn_rhel_release = subprocess.getoutput("ssh root@" + _managed_node + " cat /etc/redhat-release | awk 'BEGIN{FS=\"release \"}{split ($2, a, \" \"); print a[1]}'")
@@ -22,7 +23,7 @@ print('Managed node HW architecture: ' + _mn_hw_arch)
 __tests = [
     {
         'number': '1',
-        'name': 'Run in check mode on new system',
+        'name': 'Run in check mode on new system.',
         'command_line_parameter': '--check ',
         'ignore_error_final': True,
         'compact_assert_output': False,
@@ -31,7 +32,7 @@ __tests = [
     },
     {
         'number': '2',
-        'name': 'Run in assert mode on new system. Continue with the next test in case of any error',
+        'name': 'Run in assert mode on new system. Ignore a final error.',
         'command_line_parameter': '',
         'ignore_error_final': True,
         'compact_assert_output': False,
@@ -44,7 +45,7 @@ __tests = [
     },
     {
         'number': '3',
-        'name': 'Run in assert mode on new system, ignore any error',
+        'name': 'Run in assert mode on new system, ignore any assert error.',
         'command_line_parameter': '',
         'ignore_error_final': False,
         'compact_assert_output': False,
@@ -58,9 +59,9 @@ __tests = [
     },
     {
         'number': '4',
-        'name': 'Run in assert mode on new system, check for possible RHEL update, ignore any error, compact output',
+        'name': 'Run in assert mode on new system, compact output, ignore any assert or final error.',
         'command_line_parameter': '',
-        'ignore_error_final': False,
+        'ignore_error_final': True,
         'compact_assert_output': True,
         'rc': '99',
         'role_vars': [
@@ -72,7 +73,7 @@ __tests = [
     },
     {
         'number': '5',
-        'name': 'Run in normal mode on new system. Do not fail in case not enough swap space is configured',
+        'name': 'Run in normal mode on new system. Do not fail in case not enough swap space is configured.',
         'command_line_parameter': '',
         'ignore_error_final': False,
         'compact_assert_output': False,
@@ -85,7 +86,7 @@ __tests = [
     },
     {
         'number': '6',
-        'name': 'Run in check mode on configured system. Continue with the next test in case of any error',
+        'name': 'Run in check mode on configured system. Ignore a final error.',
         'command_line_parameter': '--check ',
         'ignore_error_final': True,
         'compact_assert_output': False,
@@ -94,7 +95,7 @@ __tests = [
     },
     {
         'number': '7',
-        'name': 'Run in assert mode on modified system. Continue with the next test in case of any error',
+        'name': 'Run in assert mode on modified system. Ignore a final error.',
         'command_line_parameter': '',
         'ignore_error_final': True,
         'compact_assert_output': False,
@@ -107,9 +108,9 @@ __tests = [
     },
     {
         'number': '8',
-        'name': 'Run in assert mode on modified system, ignore any error, compact output',
+        'name': 'Run in assert mode on modified system, compact output, ignore any assert error.',
         'command_line_parameter': '',
-        'ignore_error_final': False,
+        'ignore_error_final': True,
         'compact_assert_output': True,
         'rc': '99',
         'role_vars': [
@@ -146,7 +147,7 @@ for par1 in __tests:
     else:
         print('Test ' + par1['number'] + ' finished with return code ' + par1['rc'] + '.')
 
-print ('\nResults for: ' + _managed_node + ' - RHEL ' + _mn_rhel_release + ' - ' + _mn_hw_arch + ':')
+print ('\nResults for role sap-netweaver-preconfigure: ' + _managed_node + ' - RHEL ' + _mn_rhel_release + ' - ' + _mn_hw_arch + ':')
 
 print ('\n#'
        + _field_delimiter

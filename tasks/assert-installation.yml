@@ -31,5 +31,3 @@
     loop_var: line_item
   when: sap_netweaver_preconfigure_use_adobe_doc_services|d(false)
   ignore_errors: "{{ sap_netweaver_preconfigure_assert_ignore_errors|d(false) }}"
-
-...

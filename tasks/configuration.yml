@@ -24,5 +24,3 @@
   when:
     - ansible_swaptotal_mb < sap_netweaver_preconfigure_min_swap_space_mb|int
     - sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured|d(true)
-
-...

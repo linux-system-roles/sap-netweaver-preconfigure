@@ -28,7 +28,7 @@ Role Variables
 --------------
 
 ### Execute only certain steps of SAP notes
-If the following variable is set to no, only the installion or configuration steps of SAP notes will be executed or checked. If this variable is undefined or set to no, all installation and configuration steps of applicable SAP notes will be executed.
+If the following variable is set to `no`, only the installation or configuration steps of SAP notes will be executed or checked. If this variable is undefined or set to `yes`, all installation and configuration steps of applicable SAP notes will be executed.
 ```yaml
 sap_netweaver_preconfigure_config_all
 ```
@@ -67,7 +67,7 @@ sap_netweaver_preconfigure_min_swap_space_mb
 ```
 
 ### Fail if there is less than 20480 MB of swap space configured
-If the following variable is set to no, the role will not fail if less than 20480 MB of swap space is configured. Default is yes.
+If the following variable is set to `no`, the role will not fail if less than 20480 MB of swap space is configured. Default is `yes`.
 ```yaml
 sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured
 ```
@@ -129,8 +129,15 @@ awk '{sub ("    \"msg\": ", "")}
      }
      else printf ("\033[31mFAIL: %d  \033[33mWARN: %d  \033[32mPASS: %d\033[30m\n", nfail[var], nwarn[var], npass[var])}}'
 ```
-Note: For terminals with white font on dark background, replace the color code `30m` by `37m`.
-In case you need to reset terminal font colors to the default, run: `tput init`.
+Note: For terminals with dark background, replace the color code `30m` by `37m`.
+In case you need to make an invisible font readable on a terminal with dark background, run the following command in the terminal:
+```yaml
+printf "\033[37mreadable font\n"
+```
+In case you need to make an invisible font readable on a terminal with bright background, run the following command in the terminal:
+```yaml
+printf "\033[30mreadable font\n"
+```
 
 License
 -------

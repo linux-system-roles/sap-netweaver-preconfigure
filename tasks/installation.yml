@@ -1,9 +1,12 @@
 ---
-# tasks file for sap-netweaver-preconfigure: installation
 
-- name: Ensure required packages are installed
+- name: Ensure required packages for SAP NetWeaver are installed
   package:
     state: present
     name: "{{ __sap_netweaver_preconfigure_packages }}"
 
-...
+- name: Ensure required packages for Adobe Document Services are installed
+  package:
+    state: present
+    name: "{{ __sap_netweaver_preconfigure_adobe_doc_services_packages }}"
+  when: sap_netweaver_preconfigure_use_adobe_doc_services

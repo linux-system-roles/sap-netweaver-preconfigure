@@ -11,26 +11,33 @@
     state=started
     enabled=yes
 
-- name: Show active tuned profile
-  command: bash -lc "/usr/sbin/tuned-adm active | awk '/:/{print $NF}'"
+- name: Show currently active tuned profile
+  shell: /usr/sbin/tuned-adm active | awk '/:/{print $NF}'
   check_mode: no
-  register: current_profile
+  register: __sap_netweaver_preconfigure_register_current_tuned_profile
   changed_when: false
+
 - debug:
-    var: current_profile.stdout_lines, current_profile.stderr_lines
+    var: __sap_netweaver_preconfigure_register_current_tuned_profile.stdout_lines, __sap_netweaver_preconfigure_register_current_tuned_profile.stderr_lines
+
+- set_fact:
+    __sap_netweaver_preconfigure_register_active_tuned_profile: "{{ __sap_netweaver_preconfigure_register_current_tuned_profile.stdout }}"
 
 - name: Switch to tuned profile sap-netweaver if not currently active
   block:
     - name: Switch to tuned profile sap-netweaver
       command: /usr/sbin/tuned-adm profile sap-netweaver
 
-    - name: Show active tuned profile
-      command: bash -lc "/usr/sbin/tuned-adm active | awk '{print $NF}'"
-      register: new_profile
+    - name: Show new active tuned profile
+      shell: /usr/sbin/tuned-adm active | awk '{print $NF}'
+      check_mode: no
+      register: __sap_netweaver_preconfigure_register_new_tuned_profile
       changed_when: false
-    - debug:
-        var: new_profile.stdout_lines, new_profile.stderr_lines
-  when:
-    - current_profile.stdout != 'sap-netweaver'
 
-...
+    - debug:
+        var: __sap_netweaver_preconfigure_register_new_tuned_profile.stdout_lines, __sap_netweaver_preconfigure_register_new_tuned_profile.stderr_lines
+
+    - set_fact:
+        __sap_netweaver_preconfigure_register_active_tuned_profile: "{{ __sap_netweaver_preconfigure_register_new_tuned_profile.stdout }}"
+  when:
+    - __sap_netweaver_preconfigure_register_current_tuned_profile.stdout != 'sap-netweaver'

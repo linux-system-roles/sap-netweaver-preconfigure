@@ -2,11 +2,13 @@
 
 - name: List required SAP Notes
   debug:
-    var: __sap_netweaver_preconfigure_sapnotes | difference([''])
+    var: __sap_netweaver_preconfigure_sapnotes_versions | difference([''])
 
 - name: Include configuration actions for required sapnotes
-  include_tasks: "sapnote/{{ item }}.yml"
-  with_items: "{{ __sap_netweaver_preconfigure_sapnotes | difference(['']) }}"
+  include_tasks: "sapnote/{{ sap_note_line_item.number }}.yml"
+  with_items: "{{ __sap_netweaver_preconfigure_sapnotes_versions | difference(['']) }}"
+  loop_control:
+    loop_var: sap_note_line_item
 
 - name: Warn if not enough swap space is configured
   fail:

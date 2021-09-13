@@ -5,6 +5,9 @@
 __sap_netweaver_preconfigure_sapnotes:
   - "2526952"
 
+__sap_netweaver_preconfigure_sapnotes_versions:
+  - { number: '2526952', version: '5' }
+
 __sap_netweaver_preconfigure_packages:
   - tuned-profiles-sap
 

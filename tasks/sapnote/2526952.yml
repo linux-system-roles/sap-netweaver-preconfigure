@@ -5,6 +5,11 @@
 
 # Configure tuned to use profile "sap-netweaver"
 
+- name: Show note number and version
+  debug:
+    msg: "SAP note {{ (__sap_netweaver_preconfigure_sapnotes_versions | selectattr('number', 'match', '^2526952$') | first).number }}
+          (version {{ (__sap_netweaver_preconfigure_sapnotes_versions | selectattr('number', 'match', '^2526952$') | first).version }}): RHEL for SAP packages"
+
 - name: Enable and start tuned
   service:
     name=tuned

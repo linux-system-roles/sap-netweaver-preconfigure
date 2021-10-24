@@ -1,6 +1,6 @@
 ---
 
-- name: List required SAP Notes
+- name: Assert - List required SAP Notes
   debug:
     var: __sap_netweaver_preconfigure_sapnotes_versions | difference([''])
 
@@ -13,7 +13,8 @@
   loop_control:
     loop_var: sap_note_line_item
 
-- debug:
+- name: Report if checking for the minimum size of the swap space is skipped
+  debug:
     msg: "INFO: Not checking for the minimum size of the swap space (variable sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured)."
   when: not sap_netweaver_preconfigure_fail_if_not_enough_swap_space_configured
 

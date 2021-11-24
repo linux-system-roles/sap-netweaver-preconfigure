@@ -44,7 +44,7 @@
   register: __sap_netweaver_preconfigure_register_current_tuned_profile
   changed_when: false
 
-- name: Display the output of the tuned-adm active command
+- name: Assert - Display the output of the tuned-adm active command
   debug:
     var: __sap_netweaver_preconfigure_register_current_tuned_profile.stdout_lines,
          __sap_netweaver_preconfigure_register_current_tuned_profile.stderr_lines

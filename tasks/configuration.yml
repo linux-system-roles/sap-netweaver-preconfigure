@@ -1,6 +1,6 @@
 ---
 
-- name: List required SAP Notes
+- name: Configure - List required SAP Notes
   debug:
     var: __sap_netweaver_preconfigure_sapnotes_versions | difference([''])
 
